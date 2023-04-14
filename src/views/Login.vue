@@ -1,13 +1,12 @@
 <template>
   <div class="register">
-    <h1 class="title">Sign Up</h1>
+    <h1 class="title">Sign In</h1>
     <p class="text-xs-center">
-      <router-link to="/login">Have an account?</router-link>
+      <router-link to="/register">Need an account?</router-link>
     </p>
     <gg-validation-errors v-if="validationErrors" :validation-errors="validationErrors"/>
     <form action="/" @submit.prevent="onSubmit">
       <div class="input-wrapper">
-        <input type="text" placeholder="Fio" v-model="fio"/>
         <input type="text" placeholder="Email" v-model="email"/>
         <input type="Password" placeholder="Password" v-model="password"/>
       </div>
@@ -20,15 +19,15 @@
 import GgValidationErrors from "@/components/ValidationErrors";
 
 export default {
-  name: "GgRegister",
+  name: "GgLogin",
   components: {
     GgValidationErrors,
   },
+
   data() {
     return {
       email: "",
       password: "",
-      fio: "",
     };
   },
   computed: {
@@ -44,9 +43,8 @@ export default {
     onSubmit() {
       console.log("submitted from");
       this.$store
-          .dispatch("register", {
+          .dispatch("login", {
             email: this.email,
-            fio: this.fio,
             password: this.password,
           })
           .then(() => {
@@ -54,7 +52,7 @@ export default {
           });
     },
   },
-};
+}
 </script>
 
 <style>
