@@ -1,79 +1,82 @@
 <template>
-  <div class="auth-page">
-    <div class="container page">
-      <div class="row">
-        <div class="col-md-6 offset-md-3 col-xs-12">
-          <h1 class="text-xs-center">Sign Up</h1>
-          <p class="text-xs-center">
-            <router-link to="{name: 'login'}">Need an account?</router-link>
-          </p>
-          VALIDATION ERRORS
-          <form @submit.prevent="onSubmit">
-            <fieldset class="form-group">
-              <input
-                  type="text"
-                  class="form-control form-control-lg"
-                  placeholder="Fio"
-                  v-model="fio"
-              >
-            </fieldset>
-
-            <fieldset class="form-group">
-              <input
-                  type="text"
-                  class="form-control form-control-lg"
-                  placeholder="Email"
-                  v-model="email"
-              >
-            </fieldset>
-
-            <fieldset class="form-group">
-              <input
-                  type="Password"
-                  class="form-control form-control-lg"
-                  placeholder="Password"
-                  v-model="password"
-              >
-            </fieldset>
-            <button class="btn btn-lg btn-primary pull-xs-right" :disabled="isSubmitting">
-              Sign Up
-            </button>
-          </form>
-        </div>
+  <div class="register">
+    <h1 class="title">Sign Up</h1>
+    <p class="text-xs-center">
+      <router-link to="{name: 'login'}">Need an account?</router-link>
+    </p>
+    <gg-validation-errors v-if="validationErrors" :validation-errors="validationErrors"/>
+    <form action="/" @submit.prevent="onSubmit">
+      <div class="input-wrapper">
+        <input type="text" placeholder="Fio" v-model="fio"/>
+        <input type="text" placeholder="Email" v-model="email"/>
+        <input type="Password" placeholder="Password" v-model="password"/>
       </div>
-    </div>
-    Register Page
+      <input :disabled="isSubmitting" class="form-button" type="submit" value="Register">
+    </form>
   </div>
 </template>
 
 <script>
+import GgValidationErrors from "@/components/ValidationErrors";
+
 export default {
-  name: 'GgRegister',
+  name: "GgRegister",
+  components: {
+    GgValidationErrors,
+  },
   data() {
     return {
-      email: '',
-      password: '',
-      fio: ''
-    }
+      email: "",
+      password: "",
+      fio: "",
+    };
   },
   computed: {
     isSubmitting() {
-      return this.$store.state.auth.isSubmitting
-    }
+      return this.$store.state.auth.isSubmitting;
+    },
+    validationErrors() {
+      return this.$store.state.auth.validationErrors;
+    },
   },
 
   methods: {
     onSubmit() {
-      console.log('submitted from');
-      this.$store.dispatch('register', {
-        email: this.email,
-        fio: this.fio,
-        password: this.password
-      }).then(user => {
-        console.log('successfully register user', user)
-        this.$router.push({name: 'home'})
-      })
+      console.log("submitted from");
+      this.$store
+          .dispatch("register", {
+            email: this.email,
+            fio: this.fio,
+            password: this.password,
+          })
+          .then((user) => {
+            console.log("successfully register user", user);
+            this.$router.push({name: "home"});
+          });
     },
-  }
-}
+  },
+};
 </script>
+
+<style>
+.title {
+  text-align: center;
+}
+
+.register {
+  width: 700px;
+  margin: auto;
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+input{
+  margin-top: 10px;
+  padding: 10px;
+}
+.form-button{
+  width: 100%;
+}
+</style>

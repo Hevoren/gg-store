@@ -1,7 +1,6 @@
 <template>
   <div>
     QWE
-    <router-view/>
-
+    <router-view />
   </div>
 </template>
