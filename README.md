@@ -1,4 +1,4 @@
-# gg
+# gg-store
 
 ## Project setup
 
