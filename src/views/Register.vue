@@ -13,21 +13,27 @@
               <input
                   type="text"
                   class="form-control form-control-lg"
-                  placeholder="Username">
+                  placeholder="Fio"
+                  v-model="fio"
+              >
             </fieldset>
 
             <fieldset class="form-group">
               <input
                   type="text"
                   class="form-control form-control-lg"
-                  placeholder="Email">
+                  placeholder="Email"
+                  v-model="email"
+              >
             </fieldset>
 
             <fieldset class="form-group">
               <input
                   type="Password"
                   class="form-control form-control-lg"
-                  placeholder="Password">
+                  placeholder="Password"
+                  v-model="password"
+              >
             </fieldset>
             <button class="btn btn-lg btn-primary pull-xs-right" :disabled="isSubmitting">
               Sign Up
@@ -43,6 +49,13 @@
 <script>
 export default {
   name: 'GgRegister',
+  data() {
+    return {
+      email: '',
+      password: '',
+      fio: ''
+    }
+  },
   computed: {
     isSubmitting() {
       return this.$store.state.auth.isSubmitting
@@ -52,7 +65,14 @@ export default {
   methods: {
     onSubmit() {
       console.log('submitted from');
-      this.$store.commit('registerStart')
+      this.$store.dispatch('register', {
+        email: this.email,
+        fio: this.fio,
+        password: this.password
+      }).then(user => {
+        console.log('successfully register user', user)
+        this.$router.push({name: 'home'})
+      })
     },
   }
 }
