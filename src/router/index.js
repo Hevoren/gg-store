@@ -1,23 +1,28 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import HomeView from "@/views/HomeView.vue";
-import Register from "@/views/Register.vue";
-import Login from "@/views/Login.vue";
+import GgRegister from "@/views/Register.vue";
+import GgLogin from "@/views/Login.vue";
+import GgProducts from "@/views/Products.vue";
 
 const routes = [
   {
     path: "/",
     name: "home",
-    component: HomeView,
+    component: GgProducts,
   },
   {
     path: "/register",
     name: "register",
-    component: Register,
+    component: GgRegister,
   },
   {
     path: "/login",
     name: "login",
-    component: Login,
+    component: GgLogin,
+  },
+  {
+    path: "/products",
+    name: "products",
+    component: GgProducts,
   },
 ];
 

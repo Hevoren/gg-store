@@ -61,6 +61,7 @@ const actions = {
         .then((response) => {
           context.commit("loginSuccess", credentials);
           setItem("accessToken", response.data.data.user_token);
+
           resolve(response.data.user);
         })
         .catch((result) => {

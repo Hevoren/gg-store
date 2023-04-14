@@ -2,7 +2,7 @@
   <div class="register">
     <h1 class="title">Sign In</h1>
     <p class="text-xs-center">
-      <router-link to="/register">Need an account?</router-link>
+      <router-link to="/register" class="offer">Need an account?</router-link>
     </p>
     <gg-validation-errors v-if="validationErrors" :validation-errors="validationErrors"/>
     <form action="/" @submit.prevent="onSubmit">
@@ -10,7 +10,7 @@
         <input type="text" placeholder="Email" v-model="email"/>
         <input type="Password" placeholder="Password" v-model="password"/>
       </div>
-      <input :disabled="isSubmitting" class="form-button" type="submit" value="Register">
+      <input :disabled="isSubmitting" class="form-button" type="submit" value="Login">
     </form>
   </div>
 </template>
@@ -56,13 +56,22 @@ export default {
 </script>
 
 <style>
+
+
 .title {
+  color: #378BA4;
   text-align: center;
+}
+
+.offer{
+  text-decoration: none;
+  color: #012E4A;
+  font-weight: bold;
 }
 
 .register {
   width: 700px;
-  margin: auto;
+  margin: 100px auto ;
 }
 
 .input-wrapper {
@@ -70,10 +79,13 @@ export default {
   flex-direction: column;
 }
 input{
+  border-radius: 10px;
+  border: 0px;
   margin-top: 10px;
   padding: 10px;
 }
 .form-button{
   width: 100%;
+  background-color: #91bfcb;
 }
 </style>

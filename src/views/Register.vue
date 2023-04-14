@@ -2,9 +2,9 @@
   <div class="register">
     <h1 class="title">Sign Up</h1>
     <p class="text-xs-center">
-      <router-link to="/login">Have an account?</router-link>
+      <router-link to="/login" class="offer">Have an account?</router-link>
     </p>
-    <gg-validation-errors v-if="validationErrors" :validation-errors="validationErrors"/>
+    <gg-validation-errors v-if="validationErrors" :validation-errors="validationErrors" class="errors"/>
     <form action="/" @submit.prevent="onSubmit">
       <div class="input-wrapper">
         <input type="text" placeholder="Fio" v-model="fio"/>
@@ -59,23 +59,40 @@ export default {
 
 <style>
 .title {
+  color: #378BA4;
   text-align: center;
+}
+
+.offer {
+  text-decoration: none;
+  color: #012E4A;
+  font-weight: bold;
+}
+
+.errors {
+  color: red;
+  font-weight: bold;
 }
 
 .register {
   width: 700px;
-  margin: auto;
+  margin: 100px auto ;
 }
 
 .input-wrapper {
   display: flex;
   flex-direction: column;
 }
-input{
+
+input {
+  border-radius: 10px;
+  border: 0px;
   margin-top: 10px;
   padding: 10px;
 }
-.form-button{
+
+.form-button {
   width: 100%;
+  background-color: #81BECE;
 }
 </style>
