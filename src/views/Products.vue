@@ -1,11 +1,30 @@
 <template>
-  <div class="home">Home Page</div>
+  <div>
+    <p class="title-products">Products</p>
+    <gg-feed :api-url="apiUrl"></gg-feed>
+  </div>
 </template>
 
 <script>
-// @ is an alias to /src
+import GgFeed from "@/components/Feed.vue"
 
 export default {
   name: "GgProducts",
+  components: {
+    GgFeed
+  },
+  data() {
+    return {
+      apiUrl: '/products',
+    }
+  },
 };
 </script>
+
+<style>
+.title-products{
+  text-align: center;
+  color: white;
+  font-size: 24px;
+}
+</style>

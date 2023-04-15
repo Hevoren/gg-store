@@ -1,9 +1,7 @@
 <template>
   <div class="register">
     <h1 class="title">Sign Up</h1>
-    <p class="text-xs-center">
-      <router-link to="/login" class="offer">Have an account?</router-link>
-    </p>
+
     <gg-validation-errors
       v-if="validationErrors"
       :validation-errors="validationErrors"
@@ -11,9 +9,9 @@
     />
     <form action="/" @submit.prevent="onSubmit">
       <div class="input-wrapper">
-        <input type="text" placeholder="Fio" v-model="fio" />
-        <input type="text" placeholder="Email" v-model="email" />
-        <input type="Password" placeholder="Password" v-model="password" />
+        <input class="input-type" type="text" placeholder="Fio" v-model="fio" />
+        <input class="input-type" type="text" placeholder="Email" v-model="email" />
+        <input class="input-type" type="Password" placeholder="Password" v-model="password" />
       </div>
       <input
         :disabled="isSubmitting"
@@ -22,6 +20,9 @@
         value="Register"
       />
     </form>
+    <p class="text-xs-center">
+      <router-link to="/login" class="offer">Have an account?</router-link>
+    </p>
   </div>
 </template>
 
@@ -84,7 +85,7 @@ export default {
 }
 
 .register {
-  width: 700px;
+  width: 400px;
   margin: 100px auto;
 }
 
@@ -93,14 +94,24 @@ export default {
   flex-direction: column;
 }
 
-input {
+.input-type {
   border-radius: 10px;
-  border: 0px;
+  border: 2px solid #91bfcb;
+  box-shadow: none;
   margin-top: 10px;
   padding: 10px;
+  color: black;
+}
+
+.input-type:focus{
+  border: 2px solid black;
+  box-shadow: none;
 }
 
 .form-button {
+  border-radius: 10px;
+  margin-top: 10px;
+  padding: 10px;
   width: 100%;
   background-color: #81bece;
 }

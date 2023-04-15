@@ -6,10 +6,10 @@
 
     <div class="right-topbar">
       <ul v-if='isLoggedIn' class="list">
-        <router-link class="link" to="products">Products</router-link>
-        <router-link class="link" to="cart">Cart</router-link>
-        <router-link class="link" to="order">Orders</router-link>
-        <router-link class="link" to="">Sign Out</router-link>
+        <router-link class="link" to="products" exact active-class="active">Products</router-link>
+        <router-link class="link" to="cart" exact active-class="active">Cart</router-link>
+        <router-link class="link" to="order" exact active-class="active">Orders</router-link>
+        <router-link class="link" to="/">Exit</router-link>
       </ul>
       <ul v-if='!isLoggedIn' class="list">
         <router-link class="link" to="products" exact active-class="active">Products</router-link>
@@ -25,9 +25,6 @@
 export default {
   name: 'GgTopbar',
   computed: {
-    currentUser(){
-      return this.$store.getters.currentUser
-    },
     isLoggedIn(){
       return this.$store.getters.isLoggedIn
     },

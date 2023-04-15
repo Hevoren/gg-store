@@ -2,7 +2,6 @@ import authApi from "@/api/auth";
 import { setItem } from "@/helpers/persistanceStorage";
 
 const state = {
-  fio: null,
   isSubmitting: false,
   currentUser: null,
   validationErrors: null,
@@ -10,9 +9,6 @@ const state = {
 };
 
 const getters = {
-  currentUser: (state) => {
-    return state.currentUser;
-  },
   isLoggedIn: (state) => {
     return Boolean(state.isLoggedIn);
   },

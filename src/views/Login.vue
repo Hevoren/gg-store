@@ -1,17 +1,15 @@
 <template>
-  <div class="register">
+  <div class="login">
     <h1 class="title">Sign In</h1>
-    <p class="text-xs-center">
-      <router-link to="/register" class="offer">Need an account?</router-link>
-    </p>
+
     <gg-validation-errors
       v-if="validationErrors"
       :validation-errors="validationErrors"
     />
     <form action="/" @submit.prevent="onSubmit">
       <div class="input-wrapper">
-        <input type="text" placeholder="Email" v-model="email" />
-        <input type="Password" placeholder="Password" v-model="password" />
+        <input class="input-type" type="text" placeholder="Email" v-model="email" />
+        <input class="input-type" placeholder="Password" v-model="password" />
       </div>
       <input
         :disabled="isSubmitting"
@@ -20,6 +18,9 @@
         value="Login"
       />
     </form>
+    <p class="text-xs-center">
+      <router-link to="/register" class="offer">Need an account?</router-link>
+    </p>
   </div>
 </template>
 
@@ -75,8 +76,8 @@ export default {
   font-weight: bold;
 }
 
-.register {
-  width: 700px;
+.login {
+  width: 400px;
   margin: 100px auto;
 }
 
@@ -84,14 +85,25 @@ export default {
   display: flex;
   flex-direction: column;
 }
-input {
+.input-type {
   border-radius: 10px;
-  border: 0px;
+  border: 2px solid #91bfcb;
+  box-shadow: none;
   margin-top: 10px;
   padding: 10px;
+  color: black;
 }
+
+.input-type:focus{
+  border: 2px solid black;
+  box-shadow: none;
+}
+
 .form-button {
+  border-radius: 10px;
+  margin-top: 10px;
+  padding: 10px;
   width: 100%;
-  background-color: #91bfcb;
+  background-color: #81bece;
 }
 </style>
