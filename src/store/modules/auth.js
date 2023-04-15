@@ -8,6 +8,18 @@ const state = {
   isLoggedIn: null,
 };
 
+const getters = {
+  currentUser: (state) => {
+    return state.currentUser;
+  },
+  isLoggedIn: (state) => {
+    return Boolean(state.isLoggedIn);
+  },
+  isAnonymous: (state) => {
+    return state.isLoggedIn === false;
+  },
+};
+
 const mutations = {
   registerStart(state) {
     state.isSubmitting = true;
@@ -61,11 +73,17 @@ const actions = {
         .then((response) => {
           context.commit("loginSuccess", credentials);
           setItem("accessToken", response.data.data.user_token);
-
-          resolve(response.data.user);
+          console.log("asdasdasd", response);
+          resolve();
         })
         .catch((result) => {
-          context.commit("loginFailure", result.response.data.error.errors);
+          if (result.response.data.error.code === 401) {
+            context.commit("loginFailure", {
+              gg: ["Email or password incorrect"],
+            });
+          } else {
+            context.commit("loginFailure", result.response.data.error.errors);
+          }
         });
     });
   },
@@ -75,4 +93,5 @@ export default {
   state,
   mutations,
   actions,
+  getters,
 };

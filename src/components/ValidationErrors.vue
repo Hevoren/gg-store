@@ -16,12 +16,12 @@ export default {
     },
   },
   computed: {
-    errorMessages(){
-      return Object.keys(this.validationErrors).map(name => {
-        const messages = this.validationErrors[name].join(', ')
-        return `${messages}`
-      })
-    }
-  }
+    errorMessages() {
+      return Object.keys(this.validationErrors).map((name) => {
+        const messages = this.validationErrors[name].join(", ");
+        return `${messages}`;
+      });
+    },
+  },
 };
 </script>

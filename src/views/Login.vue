@@ -4,13 +4,21 @@
     <p class="text-xs-center">
       <router-link to="/register" class="offer">Need an account?</router-link>
     </p>
-    <gg-validation-errors v-if="validationErrors" :validation-errors="validationErrors"/>
+    <gg-validation-errors
+      v-if="validationErrors"
+      :validation-errors="validationErrors"
+    />
     <form action="/" @submit.prevent="onSubmit">
       <div class="input-wrapper">
-        <input type="text" placeholder="Email" v-model="email"/>
-        <input type="Password" placeholder="Password" v-model="password"/>
+        <input type="text" placeholder="Email" v-model="email" />
+        <input type="Password" placeholder="Password" v-model="password" />
       </div>
-      <input :disabled="isSubmitting" class="form-button" type="submit" value="Login">
+      <input
+        :disabled="isSubmitting"
+        class="form-button"
+        type="submit"
+        value="Login"
+      />
     </form>
   </div>
 </template>
@@ -43,48 +51,46 @@ export default {
     onSubmit() {
       console.log("submitted from");
       this.$store
-          .dispatch("login", {
-            email: this.email,
-            password: this.password,
-          })
-          .then(() => {
-            this.$router.push({name: "home"});
-          });
+        .dispatch("login", {
+          email: this.email,
+          password: this.password,
+        })
+        .then(() => {
+          this.$router.push({ name: "home" });
+        });
     },
   },
-}
+};
 </script>
 
 <style>
-
-
 .title {
-  color: #378BA4;
+  color: #378ba4;
   text-align: center;
 }
 
-.offer{
+.offer {
   text-decoration: none;
-  color: #012E4A;
+  color: #012e4a;
   font-weight: bold;
 }
 
 .register {
   width: 700px;
-  margin: 100px auto ;
+  margin: 100px auto;
 }
 
 .input-wrapper {
   display: flex;
   flex-direction: column;
 }
-input{
+input {
   border-radius: 10px;
   border: 0px;
   margin-top: 10px;
   padding: 10px;
 }
-.form-button{
+.form-button {
   width: 100%;
   background-color: #91bfcb;
 }

@@ -4,14 +4,23 @@
     <p class="text-xs-center">
       <router-link to="/login" class="offer">Have an account?</router-link>
     </p>
-    <gg-validation-errors v-if="validationErrors" :validation-errors="validationErrors" class="errors"/>
+    <gg-validation-errors
+      v-if="validationErrors"
+      :validation-errors="validationErrors"
+      class="errors"
+    />
     <form action="/" @submit.prevent="onSubmit">
       <div class="input-wrapper">
-        <input type="text" placeholder="Fio" v-model="fio"/>
-        <input type="text" placeholder="Email" v-model="email"/>
-        <input type="Password" placeholder="Password" v-model="password"/>
+        <input type="text" placeholder="Fio" v-model="fio" />
+        <input type="text" placeholder="Email" v-model="email" />
+        <input type="Password" placeholder="Password" v-model="password" />
       </div>
-      <input :disabled="isSubmitting" class="form-button" type="submit" value="Register">
+      <input
+        :disabled="isSubmitting"
+        class="form-button"
+        type="submit"
+        value="Register"
+      />
     </form>
   </div>
 </template>
@@ -44,14 +53,14 @@ export default {
     onSubmit() {
       console.log("submitted from");
       this.$store
-          .dispatch("register", {
-            email: this.email,
-            fio: this.fio,
-            password: this.password,
-          })
-          .then(() => {
-            this.$router.push({name: "home"});
-          });
+        .dispatch("register", {
+          email: this.email,
+          fio: this.fio,
+          password: this.password,
+        })
+        .then(() => {
+          this.$router.push({ name: "home" });
+        });
     },
   },
 };
@@ -59,13 +68,13 @@ export default {
 
 <style>
 .title {
-  color: #378BA4;
+  color: #378ba4;
   text-align: center;
 }
 
 .offer {
   text-decoration: none;
-  color: #012E4A;
+  color: #012e4a;
   font-weight: bold;
 }
 
@@ -76,7 +85,7 @@ export default {
 
 .register {
   width: 700px;
-  margin: 100px auto ;
+  margin: 100px auto;
 }
 
 .input-wrapper {
@@ -93,6 +102,6 @@ input {
 
 .form-button {
   width: 100%;
-  background-color: #81BECE;
+  background-color: #81bece;
 }
 </style>

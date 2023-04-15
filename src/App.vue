@@ -1,24 +1,22 @@
 <template>
   <div class="all">
-    <gg-topbar/>
+    <gg-topbar />
     <router-view />
   </div>
 </template>
 
 <script>
-
-import GgTopbar from "@/components/TopBar"
+import GgTopbar from "@/components/TopBar";
 export default {
-  name: 'GgApp',
+  name: "GgApp",
   components: {
-    GgTopbar
+    GgTopbar,
   },
-
-}
+};
 </script>
 
 <style>
-.all{
+.all {
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
