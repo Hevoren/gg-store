@@ -5,40 +5,34 @@
     </div>
 
     <div class="right-topbar">
-      <ul v-if="isLoggedIn" class="list">
-        <p class="userName">Пользователь: {{ currentUser }}</p>
+      <ul v-if='isLoggedIn' class="list">
         <router-link class="link" to="products">Products</router-link>
+        <router-link class="link" to="cart">Cart</router-link>
+        <router-link class="link" to="order">Orders</router-link>
+        <router-link class="link" to="">Sign Out</router-link>
       </ul>
-      <ul v-if="isAnonymous" class="list">
-        <router-link class="link" to="products" exact active-class="active"
-          >Products</router-link
-        >
-        <router-link class="link" to="login" exact active-class="active"
-          >Sign in</router-link
-        >
-        <router-link class="link" to="register" exact active-class="active"
-          >Sign up</router-link
-        >
+      <ul v-if='!isLoggedIn' class="list">
+        <router-link class="link" to="products" exact active-class="active">Products</router-link>
+        <router-link class="link" to="login" exact active-class="active">Sign in</router-link>
+        <router-link class="link" to="register" exact active-class="active">Sign up</router-link>
       </ul>
     </div>
   </nav>
 </template>
 
 <script>
+
 export default {
-  name: "GgTopbar",
+  name: 'GgTopbar',
   computed: {
-    currentUser() {
-      return this.$store.getters.currentUser;
+    currentUser(){
+      return this.$store.getters.currentUser
     },
-    isLoggedIn() {
-      return this.$store.getters.isLoggedIn;
+    isLoggedIn(){
+      return this.$store.getters.isLoggedIn
     },
-    isAnonymous() {
-      return this.$store.getters.isAnonymous;
-    },
-  },
-};
+  }
+}
 </script>
 
 <style>
@@ -49,25 +43,27 @@ export default {
   align-items: center;
 }
 
+
 .link-home {
-  color: #378ba4;
+  color: white;
   font-size: 32px;
   text-decoration: none;
 }
 
 .link {
-  color: #378ba4;
+  color: white;
   text-decoration: none;
   padding: 10px;
   font-size: 23px;
 }
 
 .link:hover {
-  color: #012e4a;
+  color: #91bfcb;
 }
 
 .link.active {
-  color: black;
+  color: #91bfcb;
   font-weight: bold;
 }
+
 </style>

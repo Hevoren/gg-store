@@ -1,6 +1,6 @@
 <template>
   <div class="all">
-    <gg-topbar />
+    <gg-topbar/>
     <router-view />
   </div>
 </template>
@@ -20,6 +20,5 @@ export default {
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
-  padding-top: 30px;
 }
 </style>

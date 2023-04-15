@@ -2,6 +2,7 @@ import authApi from "@/api/auth";
 import { setItem } from "@/helpers/persistanceStorage";
 
 const state = {
+  fio: null,
   isSubmitting: false,
   currentUser: null,
   validationErrors: null,
@@ -15,9 +16,6 @@ const getters = {
   isLoggedIn: (state) => {
     return Boolean(state.isLoggedIn);
   },
-  isAnonymous: (state) => {
-    return state.isLoggedIn === false;
-  },
 };
 
 const mutations = {
@@ -27,6 +25,7 @@ const mutations = {
   },
   registerSuccess(state, payload) {
     state.isSubmitting = false;
+    console.log("registerSuccess", payload);
     state.currentUser = payload;
     state.isLoggedIn = true;
   },
@@ -40,6 +39,7 @@ const mutations = {
   },
   loginSuccess(state, payload) {
     state.isSubmitting = false;
+    console.log("loginSuccess", payload);
     state.currentUser = payload;
     state.isLoggedIn = true;
   },
@@ -73,7 +73,7 @@ const actions = {
         .then((response) => {
           context.commit("loginSuccess", credentials);
           setItem("accessToken", response.data.data.user_token);
-          console.log("asdasdasd", response);
+          console.log(credentials);
           resolve();
         })
         .catch((result) => {

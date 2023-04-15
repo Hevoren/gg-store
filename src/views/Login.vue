@@ -65,13 +65,13 @@ export default {
 
 <style>
 .title {
-  color: #378ba4;
+  color: #91bfcb;
   text-align: center;
 }
 
 .offer {
   text-decoration: none;
-  color: #012e4a;
+  color: #91bfcb;
   font-weight: bold;
 }
 
