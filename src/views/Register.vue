@@ -52,7 +52,6 @@ export default {
 
   methods: {
     onSubmit() {
-      console.log("submitted from");
       this.$store
         .dispatch("register", {
           email: this.email,

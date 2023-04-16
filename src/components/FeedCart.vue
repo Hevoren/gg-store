@@ -11,7 +11,6 @@
           </div>
           <div class="feed-item-flex">
             <p>{{ data.price }} BTC</p>
-            <button v-if="isLoggedIn" @click="addToCart(data)">Add</button>
           </div>
         </div>
 
@@ -21,14 +20,13 @@
 </template>
 
 <script>
-import GgLoader from "@/components/UI/GbLoader.vue"
+import GgLoader from "@/components/UI/GbLoader.vue";
 
 export default {
   components: {
     GgLoader,
   },
-
-  name: "GgFeed",
+  name: "GgFeedCart",
   props: {
     apiUrl: {
       type: String,
@@ -51,17 +49,13 @@ export default {
   },
   methods: {
     getFeed() {
-      this.$store.dispatch('getFeed', {apiUrl: this.apiUrl})
+      this.$store.dispatch('getFeedCart', {apiUrl: `/cart`})
     },
-    addToCart(data){
-      this.$store.dispatch('addFeed', {apiUrl: `/cart/${data.id}`})
-    },
-
   },
   mounted() {
     this.getFeed()
   }
-};
+}
 </script>
 
 <style>

@@ -21,7 +21,6 @@ const mutations = {
   },
   registerSuccess(state, payload) {
     state.isSubmitting = false;
-    console.log("registerSuccess", payload);
     state.currentUser = payload;
     state.isLoggedIn = true;
   },
@@ -35,7 +34,6 @@ const mutations = {
   },
   loginSuccess(state, payload) {
     state.isSubmitting = false;
-    console.log("loginSuccess", payload);
     state.currentUser = payload;
     state.isLoggedIn = true;
   },
@@ -67,9 +65,11 @@ const actions = {
       authApi
         .login(credentials)
         .then((response) => {
+          credentials.token = response.data.data.user_token;
+          console.log("credentials", credentials);
+          console.log("token", credentials.token);
           context.commit("loginSuccess", credentials);
           setItem("accessToken", response.data.data.user_token);
-          console.log(credentials);
           resolve();
         })
         .catch((result) => {

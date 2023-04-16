@@ -9,7 +9,7 @@
     <form action="/" @submit.prevent="onSubmit">
       <div class="input-wrapper">
         <input class="input-type" type="text" placeholder="Email" v-model="email" />
-        <input class="input-type" placeholder="Password" v-model="password" />
+        <input class="input-type" type="password" placeholder="Password" v-model="password" />
       </div>
       <input
         :disabled="isSubmitting"
@@ -50,7 +50,6 @@ export default {
 
   methods: {
     onSubmit() {
-      console.log("submitted from");
       this.$store
         .dispatch("login", {
           email: this.email,

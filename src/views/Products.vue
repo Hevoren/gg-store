@@ -23,6 +23,7 @@ export default {
 
 <style>
 .title-products{
+  margin-top: 120px;
   text-align: center;
   color: white;
   font-size: 24px;
