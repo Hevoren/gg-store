@@ -41,6 +41,17 @@ const mutations = {
     state.isSubmitting = false;
     state.validationErrors = payload;
   },
+  exitStart(state) {
+    state.currentUser = null;
+    state.isLoading = true;
+    state.isLoggedIn = false;
+    localStorage.clear();
+  },
+  exitSuccess(state) {
+    state.currentUser = null;
+    state.isLoading = false;
+    state.isLoggedIn = false;
+  },
 };
 
 const actions = {
@@ -66,8 +77,6 @@ const actions = {
         .login(credentials)
         .then((response) => {
           credentials.token = response.data.data.user_token;
-          console.log("credentials", credentials);
-          console.log("token", credentials.token);
           context.commit("loginSuccess", credentials);
           setItem("accessToken", response.data.data.user_token);
           resolve();
@@ -81,6 +90,14 @@ const actions = {
             context.commit("loginFailure", result.response.data.error.errors);
           }
         });
+    });
+  },
+
+  exit(context) {
+    context.commit("exitStart");
+    authApi.logout().then(() => {
+      localStorage.clear();
+      context.commit("exitSuccess");
     });
   },
 };

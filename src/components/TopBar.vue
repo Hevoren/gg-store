@@ -5,13 +5,13 @@
     </div>
 
     <div class="right-topbar">
-      <ul v-if='isLoggedIn' class="list">
+      <ul v-if='isLoggedIn === true' class="list">
         <router-link class="link" to="products" exact active-class="active">Products</router-link>
         <router-link class="link" to="cart" exact active-class="active">Cart</router-link>
         <router-link class="link" to="order" exact active-class="active">Orders</router-link>
-        <router-link class="link" to="/">Exit</router-link>
+        <router-link class="link" to="/" @click="exit">Exit</router-link>
       </ul>
-      <ul v-if='!isLoggedIn' class="list">
+      <ul v-if='isLoggedIn === false || isLoggedIn === null' class="list">
         <router-link class="link" to="products" exact active-class="active">Products</router-link>
         <router-link class="link" to="login" exact active-class="active">Sign in</router-link>
         <router-link class="link" to="register" exact active-class="active">Sign up</router-link>
@@ -28,6 +28,11 @@ export default {
     isLoggedIn(){
       return this.$store.getters.isLoggedIn
     },
+  },
+  methods: {
+    exit(){
+      this.$store.dispatch('exit')
+    }
   }
 }
 </script>

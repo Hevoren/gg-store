@@ -45,7 +45,7 @@ export default {
     error() {
       return this.$store.state.feed.error
     },
-    isLoggedIn(){
+    isLoggedIn() {
       return this.$store.state.auth.isLoggedIn
     }
   },
@@ -53,7 +53,7 @@ export default {
     getFeed() {
       this.$store.dispatch('getFeed', {apiUrl: this.apiUrl})
     },
-    addToCart(data){
+    addToCart(data) {
       this.$store.dispatch('addFeed', {apiUrl: `/cart/${data.id}`})
     },
 
@@ -64,7 +64,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 * {
   color: white;
 }

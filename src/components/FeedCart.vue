@@ -9,8 +9,14 @@
             <p>{{ data.name }}</p>
             <p>{{ data.description }}</p>
           </div>
-          <div class="feed-item-flex">
+          <div class="item-price">
             <p>{{ data.price }} BTC</p>
+            <p>{{ data.count }}</p>
+          </div>
+          <div class="feed-item-flex">
+            <button class="remove-item" @click="removeFeed(data)">Remove</button>
+            <button class="action-item">+</button>
+            <button class="action-item" @click="reduceFeed(data)">-</button>
           </div>
         </div>
 
@@ -21,6 +27,7 @@
 
 <script>
 import GgLoader from "@/components/UI/GbLoader.vue";
+import {mapState} from "vuex";
 
 export default {
   components: {
@@ -34,31 +41,35 @@ export default {
     }
   },
   computed: {
-    isLoading() {
-      return this.$store.state.feed.isLoading
-    },
-    feed() {
-      return this.$store.state.feed.data
-    },
-    error() {
-      return this.$store.state.feed.error
-    },
-    isLoggedIn(){
-      return this.$store.state.auth.isLoggedIn
-    }
+    ...mapState({
+      isLoading: state => state.feed.isLoading,
+      feed: state => state.feed.data,
+      error: state => state.feed.error,
+      isLoggedIn: state => state.auth.isLoggedIn
+    }),
   },
   methods: {
-    getFeed() {
-      this.$store.dispatch('getFeedCart', {apiUrl: `/cart`})
+    getFeeds() {
+      this.$store.dispatch('getFeedCart', {apiUrl: `/cart`}).then(() => this.groupFeeds())
     },
+    groupFeeds() {
+      console.log('feed', this.$store.state.data.data)
+      this.$store.dispatch('groupFeeds', this.feed)
+    },
+    removeFeed(data) {
+      this.$store.dispatch("removeFeed", {apiUrl: `/cart/${data.product_id}`})
+    },
+    reduceFeed(data) {
+      this.$store.dispatch("removeFeed", {apiUrl: `/cart/${data.id}`})
+    }
   },
   mounted() {
-    this.getFeed()
-  }
+    this.getFeeds()
+  },
 }
 </script>
 
-<style>
+<style scoped>
 * {
   color: white;
 }
@@ -91,6 +102,13 @@ export default {
   justify-content: space-between;
 }
 
+.item-price {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+
 .feed-item-flex {
   align-items: center;
   display: flex;
@@ -98,7 +116,7 @@ export default {
   justify-content: space-around;
 }
 
-.feed-item-flex button {
+.remove-item {
   color: black;
   border: none;
   border-radius: 10px;
@@ -107,7 +125,24 @@ export default {
   height: 30px;
 }
 
-.feed-item-flex button:hover {
+.action-item {
+  color: black;
+  border: none;
+  border-radius: 10px;
+  background-color: white;
+  width: 50px;
+  height: 30px;
+  font-size: 20px;
+}
+
+.remove-item:hover {
+  color: white;
+  background-color: #91bfcb;
+  transition: 0.3s;
+}
+
+.action-item:hover {
+  font-size: 20px;
   color: white;
   background-color: #91bfcb;
   transition: 0.3s;
