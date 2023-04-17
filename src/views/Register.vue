@@ -10,8 +10,18 @@
     <form action="/" @submit.prevent="onSubmit">
       <div class="input-wrapper">
         <input class="input-type" type="text" placeholder="Fio" v-model="fio" />
-        <input class="input-type" type="text" placeholder="Email" v-model="email" />
-        <input class="input-type" type="Password" placeholder="Password" v-model="password" />
+        <input
+          class="input-type"
+          type="text"
+          placeholder="Email"
+          v-model="email"
+        />
+        <input
+          class="input-type"
+          type="Password"
+          placeholder="Password"
+          v-model="password"
+        />
       </div>
       <input
         :disabled="isSubmitting"
@@ -102,7 +112,7 @@ export default {
   color: black;
 }
 
-.input-type:focus{
+.input-type:focus {
   border: 2px solid black;
   box-shadow: none;
 }

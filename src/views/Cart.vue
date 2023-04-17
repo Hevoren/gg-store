@@ -14,14 +14,13 @@ export default {
   },
   data() {
     return {
-      apiUrl: '/products',
-    }
+      apiUrl: "/products",
+    };
   },
   computed: {
     isLoggedIn() {
-      return this.$store.state.auth.isLoggedIn
-    }
+      return this.$store.state.auth.isLoggedIn;
+    },
   },
-}
-
+};
 </script>

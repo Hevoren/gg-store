@@ -171,7 +171,6 @@ const actions = {
       return acc;
     }, []);
     context.commit("groupFeedSuccess", state.data.data);
-    console.log("groupFeedSuccess");
   },
 
   increaseFeedCart(context, { apiUrl }) {

@@ -2,8 +2,14 @@
   <div class="feed">
     <gg-loader v-if="isLoading"></gg-loader>
     <div v-if="error"></div>
-    <button v-if="feed && feed.length !== 0" class="order-button" @click="orderFeeds(feed)">Order</button>
-    <div v-if="(feed && feed.length === 0) || (!feed)" class="feed-empty">
+    <button
+      v-if="feed && feed.length !== 0"
+      class="order-button"
+      @click="orderFeeds()"
+    >
+      Order
+    </button>
+    <div v-if="(feed && feed.length === 0) || !feed" class="feed-empty">
       <span class="feed-empty-title">Empty</span>
       <span class="feed-empty-desc">There doesn't seem to be anything</span>
     </div>
@@ -19,12 +25,15 @@
             <p>{{ data.count }}</p>
           </div>
           <div class="feed-item-flex">
-            <button class="remove-item" @click="removeFeed(data)">Remove</button>
-            <button class="action-item" @click="increaseFeed(data, index)">+</button>
+            <button class="remove-item" @click="removeFeed(data)">
+              Remove
+            </button>
+            <button class="action-item" @click="increaseFeed(data, index)">
+              +
+            </button>
             <button class="action-item" @click="reduceFeed(data)">-</button>
           </div>
         </div>
-
       </div>
     </div>
   </div>
@@ -32,7 +41,7 @@
 
 <script>
 import GgLoader from "@/components/UI/GbLoader.vue";
-import {mapState} from "vuex";
+import { mapState } from "vuex";
 
 export default {
   components: {
@@ -42,51 +51,56 @@ export default {
   props: {
     apiUrl: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     ...mapState({
-      isLoading: state => state.feed.isLoading,
-      feed: state => state.feed.data,
-      error: state => state.feed.error,
-      isLoggedIn: state => state.auth.isLoggedIn,
-      delFeedData: state => state.feed.delData,
+      isLoading: (state) => state.feed.isLoading,
+      feed: (state) => state.feed.data,
+      error: (state) => state.feed.error,
+      isLoggedIn: (state) => state.auth.isLoggedIn,
+      delFeedData: (state) => state.feed.delData,
     }),
   },
   methods: {
     getFeeds() {
-      this.$store.dispatch('getFeedCart', {apiUrl: `/cart`}).then(() => this.groupFeeds())
-      console.log('getFeeds')
+      this.$store
+        .dispatch("getFeedCart", { apiUrl: `/cart` })
+        .then(() => this.groupFeeds());
     },
     groupFeeds() {
-      this.$store.dispatch('groupFeedsCart')
-      console.log("groupFeeds")
+      this.$store.dispatch("groupFeedsCart");
     },
     removeFeed(data) {
       for (let deleted of this.delFeedData.data) {
         if (deleted.product_id === data.product_id) {
-          this.$store.dispatch('removeFeed', {
-            apiUrl: `/cart/${deleted.id}`
-          }).then(() => this.getFeeds())
+          this.$store
+            .dispatch("removeFeed", {
+              apiUrl: `/cart/${deleted.id}`,
+            })
+            .then(() => this.getFeeds());
         }
       }
     },
     reduceFeed(data) {
-      this.$store.dispatch("removeFeed", {apiUrl: `/cart/${data.id}`}).then(() => this.getFeeds())
+      this.$store
+        .dispatch("removeFeed", { apiUrl: `/cart/${data.id}` })
+        .then(() => this.getFeeds());
     },
     increaseFeed(data) {
-      this.$store.dispatch('increaseFeedCart', {apiUrl: `/cart/${data.product_id}`}).then(() => this.getFeeds())
+      this.$store
+        .dispatch("increaseFeedCart", { apiUrl: `/cart/${data.product_id}` })
+        .then(() => this.getFeeds());
     },
-    orderFeeds(data){
-      console.log('data', data.data)
-      this.$store.dispatch('orderFeed', {apiUrl: `/order`})
-    }
+    orderFeeds() {
+      this.$store.dispatch("orderFeed", { apiUrl: `/order` });
+    },
   },
   mounted() {
-    this.getFeeds()
+    this.getFeeds();
   },
-}
+};
 </script>
 
 <style scoped>
@@ -94,7 +108,7 @@ export default {
   color: white;
 }
 
-.order-button{
+.order-button {
   width: 90px;
   height: 40px;
   border-radius: 10px;
@@ -102,7 +116,7 @@ export default {
   transition: 0.5s ease;
 }
 
-.order-button:hover{
+.order-button:hover {
   font-size: 16px;
   background-color: #91bfcb;
   color: white;
@@ -135,12 +149,12 @@ export default {
   flex-direction: column;
 }
 
-.feed-empty-title{
+.feed-empty-title {
   display: inline-block;
   font-size: 88px;
   text-align: center;
 }
-.feed-empty-desc{
+.feed-empty-desc {
   display: inline-block;
   font-size: 16px;
   text-align: center;
@@ -159,7 +173,7 @@ export default {
   justify-content: space-between;
 }
 
-.feed-item-title-desc{
+.feed-item-title-desc {
   height: 70%;
 }
 
@@ -169,7 +183,6 @@ export default {
   flex-direction: row;
   justify-content: space-around;
 }
-
 
 .feed-item-flex {
   height: 15%;

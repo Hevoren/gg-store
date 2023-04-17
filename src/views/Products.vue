@@ -5,17 +5,17 @@
 </template>
 
 <script>
-import GgFeed from "@/components/Feed.vue"
+import GgFeed from "@/components/Feed.vue";
 
 export default {
   name: "GgProducts",
   components: {
-    GgFeed
+    GgFeed,
   },
   data() {
     return {
-      apiUrl: '/products',
-    }
+      apiUrl: "/products",
+    };
   },
 };
 </script>

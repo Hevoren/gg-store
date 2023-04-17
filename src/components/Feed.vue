@@ -14,14 +14,13 @@
             <button v-if="isLoggedIn" @click="addToCart(data)">Add</button>
           </div>
         </div>
-
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import GgLoader from "@/components/UI/GbLoader.vue"
+import GgLoader from "@/components/UI/GbLoader.vue";
 
 export default {
   components: {
@@ -32,35 +31,34 @@ export default {
   props: {
     apiUrl: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     isLoading() {
-      return this.$store.state.feed.isLoading
+      return this.$store.state.feed.isLoading;
     },
     feed() {
-      return this.$store.state.feed.data
+      return this.$store.state.feed.data;
     },
     error() {
-      return this.$store.state.feed.error
+      return this.$store.state.feed.error;
     },
     isLoggedIn() {
-      return this.$store.state.auth.isLoggedIn
-    }
+      return this.$store.state.auth.isLoggedIn;
+    },
   },
   methods: {
     getFeed() {
-      this.$store.dispatch('getFeed', {apiUrl: this.apiUrl})
+      this.$store.dispatch("getFeed", { apiUrl: this.apiUrl });
     },
     addToCart(data) {
-      this.$store.dispatch('addFeed', {apiUrl: `/cart/${data.id}`})
+      this.$store.dispatch("addFeed", { apiUrl: `/cart/${data.id}` });
     },
-
   },
   mounted() {
-    this.getFeed()
-  }
+    this.getFeed();
+  },
 };
 </script>
 

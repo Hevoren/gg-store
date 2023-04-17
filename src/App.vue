@@ -1,6 +1,6 @@
 <template>
   <div class="all">
-    <gg-topbar/>
+    <gg-topbar />
     <router-view />
   </div>
 </template>

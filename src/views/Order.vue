@@ -10,20 +10,19 @@ import OrderFeed from "@/components/orderFeed.vue";
 export default {
   name: "GgOrder",
   components: {
-    OrderFeed
+    OrderFeed,
   },
   data() {
     return {
-      apiUrl: '/order',
-    }
+      apiUrl: "/order",
+    };
   },
   computed: {
     isLoggedIn() {
-      return this.$store.state.auth.isLoggedIn
-    }
+      return this.$store.state.auth.isLoggedIn;
+    },
   },
-}
-
+};
 </script>
 
 <style>

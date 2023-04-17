@@ -2,18 +2,25 @@
   <div class="feed">
     <gg-loader v-if="isLoading"></gg-loader>
     <div v-if="error">SMTH WRONG</div>
-    <div v-if="(feed && feed.length === 0) || !feed" class="feed-empty">
-      <span class="feed-empty-title">Empty</span>
-      <span class="feed-empty-desc">There doesn't seem to be anything</span>
-    </div>
-    <div class="feed-container" v-if="feed && feed.length !== 0">
+    <div class="feed-container" v-if="feed">
       <div class="feed-list" v-for="(data, index) in feed.data" :key="index">
         <div class="feed-item">
           <div class="feed-item-desc">
-            <p>Number of your order: &nbsp; <span style="font-weight: bold; text-align: center">{{ data.id }}</span></p>
+            <p>
+              Number of your order: &nbsp;
+              <span style="font-weight: bold; text-align: center">{{
+                data.id
+              }}</span>
+            </p>
             <p>Your order:</p>
-            <ul  class="order-list">
-              <li v-for="(item, index) in data.products" :key="index" class="item-order-list">{{item}} &nbsp;</li>
+            <ul class="order-list">
+              <li
+                v-for="(item, index) in data.products"
+                :key="index"
+                class="item-order-list"
+              >
+                {{ item }} &nbsp;
+              </li>
             </ul>
           </div>
           <div class="item-price">
@@ -26,8 +33,8 @@
 </template>
 
 <script>
-import GgLoader from "@/components/UI/GbLoader.vue"
-import {mapState} from "vuex";
+import GgLoader from "@/components/UI/GbLoader.vue";
+import { mapState } from "vuex";
 
 export default {
   components: {
@@ -37,27 +44,27 @@ export default {
   props: {
     apiUrl: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     ...mapState({
-      isLoading: state => state.feed.isLoading,
-      feed: state => state.feed.data,
-      error: state => state.feed.error,
-      isLoggedIn: state => state.auth.isLoggedIn,
-      delFeedData: state => state.feed.delData,
+      isLoading: (state) => state.feed.isLoading,
+      feed: (state) => state.feed.data,
+      error: (state) => state.feed.error,
+      isLoggedIn: (state) => state.auth.isLoggedIn,
+      delFeedData: (state) => state.feed.delData,
     }),
   },
   methods: {
     getFeed() {
-      this.$store.dispatch('getFeed', {apiUrl: this.apiUrl})
+      this.$store.dispatch("getFeed", { apiUrl: this.apiUrl });
     },
   },
   mounted() {
-    this.getFeed()
-  }
-}
+    this.getFeed();
+  },
+};
 </script>
 
 <style scoped>
@@ -78,12 +85,12 @@ export default {
   flex-direction: column;
 }
 
-.feed-empty-title{
+.feed-empty-title {
   display: inline-block;
   font-size: 88px;
   text-align: center;
 }
-.feed-empty-desc{
+.feed-empty-desc {
   display: inline-block;
   font-size: 16px;
   text-align: center;
@@ -113,13 +120,13 @@ export default {
   justify-content: space-between;
 }
 
-.feed-item-desc{
+.feed-item-desc {
   display: flex;
   flex-direction: column;
   height: 85%;
 }
 
-.order-list{
+.order-list {
   display: flex;
   flex-wrap: wrap;
   list-style: none;

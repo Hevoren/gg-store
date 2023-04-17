@@ -6,9 +6,8 @@
 
 <script>
 export default {
-  name: "GbLoader"
-}
-
+  name: "GbLoader",
+};
 </script>
 
 <style scoped>
@@ -17,7 +16,7 @@ export default {
   color: white;
 }
 
-.loader-container{
+.loader-container {
   position: fixed;
   z-index: 1000;
   text-align: center;
@@ -26,13 +25,17 @@ export default {
   background-color: black;
 }
 
-.loader{
+.loader {
   margin-top: 100px;
   opacity: 0;
   animation: ani 1.5s forwards;
 }
 @keyframes ani {
-  0% {opacity: 0;}
-  100% {opacity: 1;}
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 </style>
