@@ -43,12 +43,28 @@ const mutations = {
   removeFeedSuccess(state) {
     state.isLoading = false;
   },
+  // ------------------------------------------------------
+  groupFeedStart(state) {
+    state.isLoading = true;
+  },
+  groupFeedSuccess(state, payload) {
+    state.isLoading = false;
+    state.data = payload;
+  },
+  // ------------------------------------------------------
+  increaseFeedCartStart(state) {
+    state.isLoading = true;
+  },
+  increaseFeedCartSuccess(state) {
+    state.isLoading = false;
+  },
 };
 
 const actions = {
   getFeed(context, { apiUrl }) {
     return new Promise((resolve) => {
       context.commit("getFeedStart");
+
       feedApi
         .getFeed(apiUrl)
         .then((response) => {
@@ -89,14 +105,14 @@ const actions = {
       const token = currentUser.state.currentUser.token;
       axios.defaults.headers.common.Authorization = `Bearer ${token}`;
       feedApi.removeFeed(apiUrl).then((response) => {
-        context.dispatch("getFeedCart", { apiUrl: `/cart` });
         context.commit("removeFeedSuccess");
         resolve(response);
       });
     });
   },
 
-  groupFeeds() {
+  groupFeedsCart(context) {
+    context.commit("groupFeedStart");
     state.data.data = state.data.data.reduce((acc, obj) => {
       let found = acc.find((item) => item.product_id === obj.product_id);
       if (found) {
@@ -105,6 +121,7 @@ const actions = {
         acc.push({
           id: obj.id,
           product_id: obj.product_id,
+          price: obj.price,
           name: obj.name,
           description: obj.description,
           count: 1,
@@ -112,6 +129,20 @@ const actions = {
       }
       return acc;
     }, []);
+    context.commit("groupFeedSuccess", state.data.data);
+    console.log("groupFeedSuccess");
+  },
+
+  increaseFeedCart(context, { apiUrl }) {
+    return new Promise((resolve) => {
+      context.commit("increaseFeedCartStart");
+      const token = currentUser.state.currentUser.token;
+      axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+      feedApi.postFeed(apiUrl).then((response) => {
+        context.commit("increaseFeedCartSuccess");
+        resolve(response);
+      });
+    });
   },
 };
 

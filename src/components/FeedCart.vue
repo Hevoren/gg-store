@@ -2,8 +2,9 @@
   <div class="feed">
     <gg-loader v-if="isLoading"></gg-loader>
     <div v-if="error">SMTH WRONG</div>
-    <div class="feed-container" v-if="feed">
-      <div class="feed-list" v-for="(data, index) in feed.data" :key="index">
+    <div v-if="feed && feed.length === 0" class="feed-empty">Empty</div>
+    <div class="feed-container" v-if="feed && feed.length !== 0">
+      <div class="feed-list" v-for="(data, index) in feed" :key="index">
         <div class="feed-item">
           <div class="feed-item-title-desc">
             <p>{{ data.name }}</p>
@@ -15,7 +16,7 @@
           </div>
           <div class="feed-item-flex">
             <button class="remove-item" @click="removeFeed(data)">Remove</button>
-            <button class="action-item">+</button>
+            <button class="action-item" @click="increaseFeed(data, index)">+</button>
             <button class="action-item" @click="reduceFeed(data)">-</button>
           </div>
         </div>
@@ -51,16 +52,20 @@ export default {
   methods: {
     getFeeds() {
       this.$store.dispatch('getFeedCart', {apiUrl: `/cart`}).then(() => this.groupFeeds())
+      console.log('getFeeds')
     },
     groupFeeds() {
-      console.log('feed', this.$store.state.data.data)
-      this.$store.dispatch('groupFeeds', this.feed)
+      this.$store.dispatch('groupFeedsCart')
+      console.log("groupFeeds")
     },
     removeFeed(data) {
-      this.$store.dispatch("removeFeed", {apiUrl: `/cart/${data.product_id}`})
+      this.$store.dispatch("removeFeed", {apiUrl: `/cart/${data.id}`}).then(() => this.getFeeds())
     },
     reduceFeed(data) {
-      this.$store.dispatch("removeFeed", {apiUrl: `/cart/${data.id}`})
+      this.$store.dispatch("removeFeed", {apiUrl: `/cart/${data.id}`}).then(() => this.getFeeds())
+    },
+    increaseFeed(data){
+      this.$store.dispatch('increaseFeedCart', {apiUrl: `/cart/${data.product_id}`}).then(() => this.getFeeds())
     }
   },
   mounted() {
@@ -88,6 +93,11 @@ export default {
 
 .feed-list {
   max-width: 80em;
+}
+
+.feed-empty{
+  margin-top: 200px;
+  font-size: 54px;
 }
 
 .feed-item {

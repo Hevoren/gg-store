@@ -1,6 +1,6 @@
 <template>
   <div class="loader-container">
-    <div class="loader"><h1>GABELLA</h1></div>
+    <div class="loader"><h1>LOADING...</h1></div>
   </div>
 </template>
 
@@ -18,6 +18,8 @@ export default {
 }
 
 .loader-container{
+  position: fixed;
+  z-index: 1000;
   text-align: center;
   width: 100%;
   height: 100%;

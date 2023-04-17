@@ -1,7 +1,7 @@
 <template>
   <div>
     <p class="title-cart">Cart</p>
-    <gg-feed-cart :api-url="apiUrl"></gg-feed-cart>
+    <gg-feed-cart :api-url="apiUrl" v-if="isLoggedIn"></gg-feed-cart>
   </div>
 </template>
 
@@ -16,6 +16,11 @@ export default {
   data() {
     return {
       apiUrl: '/products',
+    }
+  },
+  computed: {
+    isLoggedIn() {
+      return this.$store.state.auth.isLoggedIn
     }
   },
 }
