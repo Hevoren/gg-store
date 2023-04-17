@@ -28,6 +28,9 @@ const mutations = {
   addFeedSuccess(state) {
     state.isLoading = false;
   },
+  addFeedFailure(state) {
+    state.isLoading = false;
+  },
   // ------------------------------------------------------
   getFeedCartStart(state) {
     state.isLoading = true;
@@ -39,11 +42,17 @@ const mutations = {
     state.data = payload;
     state.delData = { ...payload };
   },
+  getFeedCartFailure(state) {
+    state.isLoading = false;
+  },
   // ------------------------------------------------------
   removeFeedStart(state) {
     state.isLoading = true;
   },
   removeFeedSuccess(state) {
+    state.isLoading = false;
+  },
+  removeFeedFailure(state) {
     state.isLoading = false;
   },
   // ------------------------------------------------------
@@ -59,6 +68,20 @@ const mutations = {
     state.isLoading = true;
   },
   increaseFeedCartSuccess(state) {
+    state.isLoading = false;
+  },
+  increaseFeedCartFailure(state) {
+    state.isLoading = false;
+  },
+  // ------------------------------------------------------
+  orderFeedStart(state) {
+    state.isLoading = true;
+  },
+  orderFeedSuccess(state) {
+    state.isLoading = false;
+    state.data = null;
+  },
+  orderFeedFailure(state) {
     state.isLoading = false;
   },
 };
@@ -84,10 +107,15 @@ const actions = {
       context.commit("addFeedStart");
       const token = currentUser.state.currentUser.token;
       axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-      feedApi.postFeed(apiUrl).then((response) => {
-        context.commit("addFeedSuccess");
-        resolve(response);
-      });
+      feedApi
+        .postFeed(apiUrl)
+        .then((response) => {
+          context.commit("addFeedSuccess");
+          resolve(response);
+        })
+        .catch(() => {
+          context.commit("addFeedFailure");
+        });
     });
   },
   getFeedCart(context, { apiUrl }) {
@@ -95,10 +123,15 @@ const actions = {
       context.commit("getFeedCartStart");
       const token = currentUser.state.currentUser.token;
       axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-      feedApi.getFeed(apiUrl).then((response) => {
-        context.commit("getFeedCartSuccess", response.data);
-        resolve(response.data);
-      });
+      feedApi
+        .getFeed(apiUrl)
+        .then((response) => {
+          context.commit("getFeedCartSuccess", response.data);
+          resolve(response.data);
+        })
+        .catch(() => {
+          context.commit("getFeedCartFailure");
+        });
     });
   },
 
@@ -107,10 +140,15 @@ const actions = {
       context.commit("removeFeedStart");
       const token = currentUser.state.currentUser.token;
       axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-      feedApi.removeFeed(apiUrl).then((response) => {
-        context.commit("removeFeedSuccess");
-        resolve(response);
-      });
+      feedApi
+        .removeFeed(apiUrl)
+        .then((response) => {
+          context.commit("removeFeedSuccess");
+          resolve(response);
+        })
+        .catch(() => {
+          context.commit("removeFeedFailure");
+        });
     });
   },
 
@@ -141,10 +179,32 @@ const actions = {
       context.commit("increaseFeedCartStart");
       const token = currentUser.state.currentUser.token;
       axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-      feedApi.postFeed(apiUrl).then((response) => {
-        context.commit("increaseFeedCartSuccess");
-        resolve(response);
-      });
+      feedApi
+        .postFeed(apiUrl)
+        .then((response) => {
+          context.commit("increaseFeedCartSuccess");
+          resolve(response);
+        })
+        .catch(() => {
+          context.commit("increaseFeedCartFailure");
+        });
+    });
+  },
+
+  orderFeed(context, { apiUrl }) {
+    return new Promise((resolve) => {
+      context.commit("orderFeedStart");
+      const token = currentUser.state.currentUser.token;
+      axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+      feedApi
+        .orderFeed(apiUrl)
+        .then((response) => {
+          context.commit("orderFeedSuccess");
+          resolve(response);
+        })
+        .catch(() => {
+          context.commit("orderFeedFailure");
+        });
     });
   },
 };

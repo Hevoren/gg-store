@@ -1,6 +1,5 @@
 <template>
   <div>
-    <p class="title-cart">Cart</p>
     <gg-feed-cart :api-url="apiUrl" v-if="isLoggedIn"></gg-feed-cart>
   </div>
 </template>
@@ -26,12 +25,3 @@ export default {
 }
 
 </script>
-
-<style>
-.title-cart{
-  margin-top: 120px;
-  text-align: center;
-  color: white;
-  font-size: 24px;
-}
-</style>

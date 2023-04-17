@@ -12,8 +12,13 @@ const removeFeed = (credentials) => {
   return axios.delete(credentials);
 };
 
+const orderFeed = (credentials) => {
+  return axios.post(credentials);
+};
+
 export default {
   getFeed,
   postFeed,
   removeFeed,
+  orderFeed,
 };

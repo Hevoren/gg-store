@@ -61,6 +61,7 @@ const actions = {
       authApi
         .register(credentials)
         .then((response) => {
+          credentials.token = response.data.data.user_token;
           context.commit("registerSuccess", credentials);
           setItem("accessToken", response.data.data.user_token);
           resolve(response.data.user);

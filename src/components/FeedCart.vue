@@ -1,8 +1,12 @@
 <template>
   <div class="feed">
     <gg-loader v-if="isLoading"></gg-loader>
-    <div v-if="error">SMTH WRONG</div>
-    <div v-if="feed && feed.length === 0" class="feed-empty">Empty</div>
+    <div v-if="error"></div>
+    <button v-if="feed && feed.length !== 0" class="order-button" @click="orderFeeds(feed)">Order</button>
+    <div v-if="(feed && feed.length === 0) || (!feed)" class="feed-empty">
+      <span class="feed-empty-title">Empty</span>
+      <span class="feed-empty-desc">There doesn't seem to be anything</span>
+    </div>
     <div class="feed-container" v-if="feed && feed.length !== 0">
       <div class="feed-list" v-for="(data, index) in feed" :key="index">
         <div class="feed-item">
@@ -62,7 +66,6 @@ export default {
     removeFeed(data) {
       for (let deleted of this.delFeedData.data) {
         if (deleted.product_id === data.product_id) {
-          console.log('wp', data.id)
           this.$store.dispatch('removeFeed', {
             apiUrl: `/cart/${deleted.id}`
           }).then(() => this.getFeeds())
@@ -74,6 +77,10 @@ export default {
     },
     increaseFeed(data) {
       this.$store.dispatch('increaseFeedCart', {apiUrl: `/cart/${data.product_id}`}).then(() => this.getFeeds())
+    },
+    orderFeeds(data){
+      console.log('data', data.data)
+      this.$store.dispatch('orderFeed', {apiUrl: `/order`})
     }
   },
   mounted() {
@@ -87,10 +94,29 @@ export default {
   color: white;
 }
 
+.order-button{
+  width: 90px;
+  height: 40px;
+  border-radius: 10px;
+  color: black;
+  transition: 0.5s ease;
+}
+
+.order-button:hover{
+  font-size: 16px;
+  background-color: #91bfcb;
+  color: white;
+  width: 110px;
+  height: 50px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
 .feed {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 100px;
 }
 
 .feed-container {
@@ -105,7 +131,20 @@ export default {
 
 .feed-empty {
   margin-top: 200px;
-  font-size: 54px;
+  display: flex;
+  flex-direction: column;
+}
+
+.feed-empty-title{
+  display: inline-block;
+  font-size: 88px;
+  text-align: center;
+}
+.feed-empty-desc{
+  display: inline-block;
+  font-size: 16px;
+  text-align: center;
+  color: #91bfcb;
 }
 
 .feed-item {
@@ -147,6 +186,7 @@ export default {
   background-color: white;
   width: 70px;
   height: 30px;
+  transition: 0.5s;
 }
 
 .action-item {
@@ -157,18 +197,19 @@ export default {
   width: 50px;
   height: 30px;
   font-size: 20px;
+  transition: 0.5s;
 }
 
 .remove-item:hover {
   color: white;
   background-color: #91bfcb;
-  transition: 0.3s;
+  cursor: pointer;
 }
 
 .action-item:hover {
   font-size: 20px;
   color: white;
   background-color: #91bfcb;
-  transition: 0.3s;
+  cursor: pointer;
 }
 </style>
