@@ -46,7 +46,8 @@ export default {
       isLoading: state => state.feed.isLoading,
       feed: state => state.feed.data,
       error: state => state.feed.error,
-      isLoggedIn: state => state.auth.isLoggedIn
+      isLoggedIn: state => state.auth.isLoggedIn,
+      delFeedData: state => state.feed.delData,
     }),
   },
   methods: {
@@ -59,12 +60,19 @@ export default {
       console.log("groupFeeds")
     },
     removeFeed(data) {
-      this.$store.dispatch("removeFeed", {apiUrl: `/cart/${data.id}`}).then(() => this.getFeeds())
+      for (let deleted of this.delFeedData.data) {
+        if (deleted.product_id === data.product_id) {
+          console.log('wp', data.id)
+          this.$store.dispatch('removeFeed', {
+            apiUrl: `/cart/${deleted.id}`
+          }).then(() => this.getFeeds())
+        }
+      }
     },
     reduceFeed(data) {
       this.$store.dispatch("removeFeed", {apiUrl: `/cart/${data.id}`}).then(() => this.getFeeds())
     },
-    increaseFeed(data){
+    increaseFeed(data) {
       this.$store.dispatch('increaseFeedCart', {apiUrl: `/cart/${data.product_id}`}).then(() => this.getFeeds())
     }
   },
@@ -95,7 +103,7 @@ export default {
   max-width: 80em;
 }
 
-.feed-empty{
+.feed-empty {
   margin-top: 200px;
   font-size: 54px;
 }
@@ -112,7 +120,12 @@ export default {
   justify-content: space-between;
 }
 
+.feed-item-title-desc{
+  height: 70%;
+}
+
 .item-price {
+  height: 15%;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -120,6 +133,7 @@ export default {
 
 
 .feed-item-flex {
+  height: 15%;
   align-items: center;
   display: flex;
   flex-direction: row;

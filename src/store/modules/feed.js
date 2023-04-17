@@ -6,6 +6,7 @@ const state = {
   data: null,
   isLoading: false,
   error: null,
+  delData: null,
 };
 
 const mutations = {
@@ -31,10 +32,12 @@ const mutations = {
   getFeedCartStart(state) {
     state.isLoading = true;
     state.data = null;
+    state.delData = null;
   },
   getFeedCartSuccess(state, payload) {
     state.isLoading = false;
     state.data = payload;
+    state.delData = { ...payload };
   },
   // ------------------------------------------------------
   removeFeedStart(state) {
