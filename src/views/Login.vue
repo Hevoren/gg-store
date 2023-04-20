@@ -5,6 +5,7 @@
     <gg-validation-errors
       v-if="validationErrors"
       :validation-errors="validationErrors"
+      class="errors"
     />
     <form action="/" @submit.prevent="onSubmit">
       <div class="input-wrapper">
@@ -74,6 +75,11 @@ export default {
 </script>
 
 <style>
+.errors {
+  color: red;
+  font-weight: bold;
+}
+
 .title {
   color: #91bfcb;
   text-align: center;

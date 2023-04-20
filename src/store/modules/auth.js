@@ -25,7 +25,7 @@ const mutations = {
     state.isLoggedIn = true;
   },
   registerFailure(state, payload) {
-    state.isSubmitting = true;
+    state.isSubmitting = false;
     state.validationErrors = payload;
   },
   loginStart(state) {

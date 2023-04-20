@@ -16,7 +16,9 @@ const mutations = {
   },
   getFeedSuccess(state, payload) {
     state.isLoading = false;
+    console.log("data1", state.data, "payload1", payload);
     state.data = payload;
+    console.log("data2", state.data, "payload2", payload);
   },
   getFeedFailure(state) {
     state.isLoading = false;
@@ -82,6 +84,18 @@ const mutations = {
     state.data = null;
   },
   orderFeedFailure(state) {
+    state.isLoading = false;
+  },
+  // ------------------------------------------------------
+  getOrderFeedStart(state) {
+    state.isLoading = true;
+    state.data = null;
+  },
+  getOrderFeedSuccess(state, payload) {
+    state.isLoading = false;
+    state.data = payload;
+  },
+  getOrderFeedFailure(state) {
     state.isLoading = false;
   },
 };
@@ -206,8 +220,25 @@ const actions = {
         });
     });
   },
-};
 
+  getOrderFeed(context, { apiUrl }) {
+    return new Promise((resolve) => {
+      context.commit("getOrderFeedStart");
+      const token = currentUser.state.currentUser.token;
+      axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+      feedApi
+        .getFeed(apiUrl)
+        .then((response) => {
+          context.commit("getOrderFeedSuccess", response.data);
+          console.log(response.data);
+          resolve(response);
+        })
+        .catch(() => {
+          context.commit("getOrderFeedFailure");
+        });
+    });
+  },
+};
 export default {
   state,
   actions,

@@ -57,12 +57,12 @@ export default {
     }),
   },
   methods: {
-    getFeed() {
-      this.$store.dispatch("getFeed", { apiUrl: this.apiUrl });
+    getFeeds() {
+      this.$store.dispatch("getOrderFeed", { apiUrl: this.apiUrl });
     },
   },
   mounted() {
-    this.getFeed();
+    this.getFeeds();
   },
 };
 </script>
